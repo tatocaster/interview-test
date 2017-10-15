@@ -1,7 +1,7 @@
 package me.tatocaster.twtest.data
 
 import me.tatocaster.twtest.data.api.ApiService
-
+import me.tatocaster.twtest.data.database.RealmService
 
 
 /**
@@ -9,4 +9,6 @@ import me.tatocaster.twtest.data.api.ApiService
  */
 interface DataComponent {
     fun exposeApiService(): ApiService
+
+    fun exposeRealmService(): RealmService
 }

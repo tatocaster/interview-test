@@ -2,6 +2,7 @@ package me.tatocaster.twtest.features.users.presentation
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import android.widget.Toast
 import com.facebook.litho.ComponentContext
 import com.facebook.litho.LithoView
 import com.facebook.litho.widget.Recycler
@@ -79,6 +80,14 @@ class UserProfileView : AppCompatActivity(), UserProfileContract.View {
                     }
                     .build())
         }
+    }
+
+    override fun closeRealm() {
+        presenter.closeRealm()
+    }
+
+    override fun showError(e : Exception) {
+        Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
     }
 
     private fun setupScopeGraph(appComponent: AppComponent) {

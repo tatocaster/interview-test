@@ -1,10 +1,12 @@
 package me.tatocaster.twtest.data.models
 
+import io.realm.RealmObject
+
 /**
  * Created by tatocaster on 14.10.17.
  */
-data class Address(
-        val street: String = "",
-        val suite: String = "",
-        val city: String = "",
-        val zipcode: String = "")
+open class Address(
+        var street: String = "",
+        var suite: String = "",
+        var city: String = "",
+        var zipcode: String = "") : RealmObject()

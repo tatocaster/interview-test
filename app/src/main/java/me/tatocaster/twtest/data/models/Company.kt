@@ -1,8 +1,9 @@
 package me.tatocaster.twtest.data.models
 
+import io.realm.RealmObject
 
-data class Company(
-        val name: String = "",
-        val catchPhrase: String = "",
-        val bs: String = ""
-)
+
+open class Company(
+        var name: String = "",
+        var catchPhrase: String = ""
+) : RealmObject()

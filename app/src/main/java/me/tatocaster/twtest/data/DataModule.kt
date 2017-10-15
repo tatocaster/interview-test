@@ -4,6 +4,7 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import me.tatocaster.twtest.data.api.ApiService
+import me.tatocaster.twtest.data.database.RealmService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -35,4 +36,10 @@ class DataModule {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .build()
     }
+
+    /*@Provides
+    fun provideRealm(): Realm = Realm.getDefaultInstance()*/
+
+    @Provides
+    fun provideRealmService(): RealmService = RealmService()
 }

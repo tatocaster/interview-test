@@ -9,11 +9,17 @@ interface UserProfileContract {
 
     interface View {
         fun loadUserList(users: List<User>)
+
+        fun closeRealm()
+
+        fun showError(e: Exception)
     }
 
     interface Presenter {
         fun onCreate()
 
         fun onDestroy()
+
+        fun closeRealm()
     }
 }

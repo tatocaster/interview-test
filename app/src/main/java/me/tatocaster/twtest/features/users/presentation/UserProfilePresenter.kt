@@ -14,6 +14,11 @@ constructor(
         private val view: UserProfileContract.View,
         private val getUserList: GetUserList) : UserProfileContract.Presenter {
 
+
+    override fun closeRealm() {
+        getUserList.closeRealm()
+    }
+
     private val disposables: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate() {
@@ -22,7 +27,7 @@ constructor(
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { users -> view.loadUserList(users) },
-                        { error -> println("$error") }
+                        { error -> view.showError(error as Exception) }
                 ))
     }
 
