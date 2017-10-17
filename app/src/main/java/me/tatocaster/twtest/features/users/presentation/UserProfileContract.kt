@@ -12,7 +12,7 @@ interface UserProfileContract {
 
         fun closeRealm()
 
-        fun showError(e: Exception)
+        fun showMessage(s: String)
     }
 
     interface Presenter {

@@ -1,8 +1,8 @@
 package me.tatocaster.twtest.data.database
 
+import android.util.Log
 import io.reactivex.Flowable
 import io.realm.Realm
-import io.realm.RealmResults
 import me.tatocaster.twtest.features.users.models.User
 
 
@@ -24,10 +24,14 @@ class RealmService {
             println("INSERT SUCCESSFUL")
         }, { e ->
             // Transaction failed and was automatically canceled.
-            println(e)
+            Log.e("error", e.message, e)
         })
     }
 
-    fun getAllUsers(): Flowable<RealmResults<User>> = mRealm.where(User::class.java).findAll().asFlowable()
+    fun getAllUsers(): Flowable<List<User>> = mRealm.where(User::class.java)
+            .findAllAsync()
+            .asFlowable()
+            .filter({ obj -> obj.isLoaded })
+            .map({ data -> mRealm.copyFromRealm(data) })
 
 }

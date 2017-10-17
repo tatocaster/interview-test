@@ -1,4 +1,4 @@
-package me.tatocaster.twtest.features.users.usecases
+package me.tatocaster.twtest.features.users.usecase
 
 import dagger.Module
 import dagger.Provides

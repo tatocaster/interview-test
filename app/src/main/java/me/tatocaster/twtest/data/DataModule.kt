@@ -41,5 +41,6 @@ class DataModule {
     fun provideRealm(): Realm = Realm.getDefaultInstance()*/
 
     @Provides
+    @Singleton
     fun provideRealmService(): RealmService = RealmService()
 }
