@@ -3,7 +3,7 @@ package me.tatocaster.twtest.features.users.presentation
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import me.tatocaster.twtest.features.users.usecases.GetUserList
+import me.tatocaster.twtest.features.users.usecases.UserListRepository
 import javax.inject.Inject
 
 /**
@@ -12,22 +12,28 @@ import javax.inject.Inject
 class UserProfilePresenter @Inject
 constructor(
         private val view: UserProfileContract.View,
-        private val getUserList: GetUserList) : UserProfileContract.Presenter {
+        private val repository: UserListRepository) : UserProfileContract.Presenter {
 
 
     override fun closeRealm() {
-        getUserList.closeRealm()
+        repository.closeRealm()
     }
 
     private val disposables: CompositeDisposable = CompositeDisposable()
 
     override fun onCreate() {
-        disposables.add(getUserList.call()
+        disposables.add(repository.call()
                 .subscribeOn(Schedulers.io())
+                .onErrorResumeNext({ repository.getAllUsersFromRealm() })
+                .mergeWith({ repository.getAllUsersFromRealm() })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        { users -> view.loadUserList(users) },
-                        { error -> view.showError(error as Exception) }
+                        { users ->
+                            view.loadUserList(users)
+                            repository.saveUsers(users)
+                            repository.getAllUsersFromRealm()
+                                    .observeOn(AndroidSchedulers.mainThread()).subscribe({ u -> println("size: ${u.size}") })
+                        }, { e -> view.showError(e as Exception) }
                 ))
     }
 

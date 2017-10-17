@@ -9,5 +9,5 @@ import dagger.Provides
 @Module
 class UserProfileUseCaseModule {
     @Provides
-    fun provideGetAllAvailableProviders(usecase: GetUserListImpl): GetUserList = usecase
+    fun provideGetAllAvailableProviders(usecase: UserListRepositoryImpl): UserListRepository = usecase
 }

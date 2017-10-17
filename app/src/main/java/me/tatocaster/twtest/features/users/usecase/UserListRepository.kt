@@ -9,13 +9,14 @@ import javax.inject.Inject
 /**
  * Created by tatocaster on 12.10.17.
  */
-interface GetUserList {
+interface UserListRepository {
     fun call(): Single<List<User>>
     fun getAllUsersFromRealm(): Single<List<User>>
+    fun saveUsers(users: List<User>)
     fun closeRealm()
 }
 
-class GetUserListImpl @Inject constructor(private val mApiService: ApiService, private val mRealmService: RealmService) : GetUserList {
+class UserListRepositoryImpl @Inject constructor(private val mApiService: ApiService, private val mRealmService: RealmService) : UserListRepository {
 
     override fun call(): Single<List<User>> {
         return mApiService.getUsers()
@@ -25,6 +26,10 @@ class GetUserListImpl @Inject constructor(private val mApiService: ApiService, p
 
     override fun getAllUsersFromRealm(): Single<List<User>> =
             mRealmService.getAllUsers().flatMapIterable({ users -> users }).toList()
+
+    override fun saveUsers(users: List<User>) {
+        mRealmService.saveUsers(users)
+    }
 
     override fun closeRealm() {
         mRealmService.closeRealm()
