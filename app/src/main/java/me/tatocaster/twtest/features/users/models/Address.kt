@@ -1,4 +1,4 @@
-package me.tatocaster.twtest.data.models
+package me.tatocaster.twtest.features.users.models
 
 import io.realm.RealmObject
 

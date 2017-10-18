@@ -2,8 +2,6 @@ package me.tatocaster.twtest.features.users.models
 
 import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
-import me.tatocaster.twtest.data.models.Address
-import me.tatocaster.twtest.data.models.Company
 
 /**
  * Created by tatocaster on 11.10.17.
