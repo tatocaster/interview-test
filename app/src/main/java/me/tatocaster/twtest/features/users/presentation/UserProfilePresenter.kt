@@ -1,9 +1,10 @@
 package me.tatocaster.twtest.features.users.presentation
 
+import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
-import me.tatocaster.twtest.features.users.usecases.UserListRepository
+import me.tatocaster.twtest.features.users.usecase.UserListRepository
 import javax.inject.Inject
 
 /**
@@ -24,16 +25,17 @@ constructor(
     override fun onCreate() {
         disposables.add(repository.call()
                 .subscribeOn(Schedulers.io())
-                .onErrorResumeNext({ repository.getAllUsersFromRealm() })
-                .mergeWith({ repository.getAllUsersFromRealm() })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         { users ->
                             view.loadUserList(users)
                             repository.saveUsers(users)
-                            repository.getAllUsersFromRealm()
-                                    .observeOn(AndroidSchedulers.mainThread()).subscribe({ u -> println("size: ${u.size}") })
-                        }, { e -> view.showError(e as Exception) }
+                        },
+                        { e ->
+                            Log.e("error", e.message, e)
+                            view.showMessage("Loading from cache")
+                            repository.getAllUsersFromRealm().subscribe({ data -> view.loadUserList(data) })
+                        }
                 ))
     }
 

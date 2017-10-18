@@ -86,8 +86,8 @@ class UserProfileView : AppCompatActivity(), UserProfileContract.View {
         presenter.closeRealm()
     }
 
-    override fun showError(e : Exception) {
-        Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+    override fun showMessage(s: String) {
+        Toast.makeText(this, s, Toast.LENGTH_SHORT).show()
     }
 
     private fun setupScopeGraph(appComponent: AppComponent) {

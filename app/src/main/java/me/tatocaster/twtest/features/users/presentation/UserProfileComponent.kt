@@ -3,7 +3,7 @@ package me.tatocaster.twtest.features.users.presentation
 import dagger.Component
 import me.tatocaster.twtest.AppComponent
 import me.tatocaster.twtest.di.scope.ViewScope
-import me.tatocaster.twtest.features.users.usecases.UserProfileUseCaseModule
+import me.tatocaster.twtest.features.users.usecase.UserProfileUseCaseModule
 
 /**
  * Created by tatocaster on 12.10.17.
