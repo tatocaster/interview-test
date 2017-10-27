@@ -5,7 +5,7 @@ apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.3"
+    buildToolsVersion '26.0.2'
     defaultConfig {
         applicationId "me.tatocaster.interview"
         minSdkVersion 16
@@ -45,41 +45,42 @@ repositories {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    api fileTree(dir: 'libs', include: ['*.jar'])
     // Android Support libs
     [
             'support-v4',
             'appcompat-v7',
             'support-annotations'
     ].each {
-        compile "com.android.support:$it:$supportVersion"
+        api "com.android.support:$it:$supportVersion"
     }
 
     // 3rd part libs
-    compile 'io.reactivex.rxjava2:rxjava:2.1.5'
-    compile 'io.reactivex.rxjava2:rxandroid:2.0.1'
-    compile "com.google.dagger:dagger:${daggerVersion}"
-    compile 'com.squareup.okhttp3:okhttp:3.8.0'
-    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-    compile 'com.squareup.retrofit2:retrofit:2.3.0'
-    compile 'com.squareup.retrofit2:converter-gson:2.3.0'
-    compile 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
+    api 'io.reactivex.rxjava2:rxjava:2.1.5'
+    api 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    api "com.google.dagger:dagger:${daggerVersion}"
+    api 'com.squareup.okhttp3:okhttp:3.8.0'
+    api 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    api 'com.squareup.retrofit2:retrofit:2.3.0'
+    api 'com.squareup.retrofit2:converter-gson:2.3.0'
+    api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
 
     // Litho
-    compile "com.facebook.litho:litho-core:${lithoVersion}"
-    compile "com.facebook.litho:litho-widget:${lithoVersion}"
-    compile "com.facebook.litho:litho-annotations:${lithoVersion}"
-    compile 'com.github.pavlospt:litho-glide:1.0'
+    implementation "com.facebook.litho:litho-core:${lithoVersion}"
+    implementation "com.facebook.litho:litho-widget:${lithoVersion}"
+    implementation "com.facebook.litho:litho-annotations:${lithoVersion}"
+    implementation 'com.github.pavlospt:litho-glide:1.0'
 
     kapt "com.google.dagger:dagger-compiler:${daggerVersion}"
     kapt "com.facebook.litho:litho-annotations:${lithoVersion}"
     kapt "com.facebook.litho:litho-processor:${lithoVersion}"
 
-    testCompile 'junit:junit:4.12'
+    testApi 'junit:junit:4.12'
+    testApi "org.mockito:mockito-core:2.+"
 
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestApi('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
 }
